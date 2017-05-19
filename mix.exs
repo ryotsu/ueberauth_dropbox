@@ -3,11 +3,16 @@ defmodule UeberauthDropbox.Mixfile do
 
   def project do
     [app: :ueberauth_dropbox,
+     name: "Ueberauth Dropbox",
+     description: description(),
+     package: package(),
      version: "0.1.0",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     source_url: "https://github.com/ryotsu/ueberauth_dropbox"
+    ]
   end
 
   # Configuration for the OTP application
@@ -32,6 +37,19 @@ defmodule UeberauthDropbox.Mixfile do
       {:oauth2, "~> 0.9"},
       {:ueberauth, "~> 0.4"},
       {:credo, "~> 0.7", only: [:dev, :test]},
+      {:ex_doc, "~> 0.15", only: :dev},
     ]
+  end
+
+
+  defp description do
+    "An Ueberauth strategy for using Dropbox"
+  end
+
+  defp package do
+    [files: ["lib", "mix.exs", "README.md", "LICENSE"],
+     maintainers: ["Mayank Tripathi"],
+     licenses: ["MIT"],
+     links: %{"GitHub": "https://github.com/ryotsu/ueberauth_dropbox"}]
   end
 end
