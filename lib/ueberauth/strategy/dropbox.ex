@@ -72,7 +72,7 @@ defmodule Ueberauth.Strategy.Dropbox do
   alias Ueberauth.Strategy.Dropbox.OAuth
 
   @doc """
-  Handles the initial redirect to the github authentication page.
+  Handles the initial redirect to the dropbox authentication page.
   """
   def handle_request!(conn) do
     state = 20 |> :crypto.strong_rand_bytes() |> Base.encode16
@@ -179,7 +179,6 @@ defmodule Ueberauth.Strategy.Dropbox do
 
     case OAuth.post(token, "/users/get_current_account") do
       {:ok, %OAuth2.Response{status_code: 401, body: _body}} ->
-        IO.puts "Unauth"
         set_errors!(conn, [error("token", "unauthorized")])
       {:ok, %OAuth2.Response{status_code: _status_code, body: user}} ->
         put_private(conn, :dropbox_user, user)
