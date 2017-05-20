@@ -60,10 +60,10 @@ defmodule Ueberauth.Strategy.Dropbox do
           dropbox: { Ueberauth.Strategy.Dropbox, [uid_field: :email] }
         ]
 
-  Default is `:email`
+  Default is `:account_id`
   """
 
-  use Ueberauth.Strategy, uid_field: :email,
+  use Ueberauth.Strategy, uid_field: :account_id,
                           oauth2_module: Ueberauth.Strategy.Dropbox.OAuth
 
   alias Ueberauth.Auth.Info
@@ -117,7 +117,7 @@ defmodule Ueberauth.Strategy.Dropbox do
 
   @doc """
   Fetches the uid field from the Dropbox response. This defaults to the option
-  `uid_field` which in-turn defaults to `email`.
+  `uid_field` which in-turn defaults to `account_id`.
   """
   def uid(conn) do
     user =
