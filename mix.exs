@@ -6,7 +6,7 @@ defmodule UeberauthDropbox.Mixfile do
      name: "Ueberauth Dropbox",
      description: description(),
      package: package(),
-     version: "0.1.1",
+     version: "0.2.0",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
