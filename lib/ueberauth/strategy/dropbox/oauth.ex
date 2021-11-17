@@ -40,7 +40,10 @@ defmodule Ueberauth.Strategy.Dropbox.OAuth do
       |> Keyword.merge(config)
       |> Keyword.merge(opts)
 
+    json_library = Ueberauth.json_library()
+
     Client.new(client_opts)
+    |> OAuth2.Client.put_serializer("application/json", json_library)
   end
 
   @doc """
@@ -84,8 +87,12 @@ defmodule Ueberauth.Strategy.Dropbox.OAuth do
 
   def get_token(client, params, headers) do
     client
+    |> put_param("client_id", client.client_id)
     |> put_param("client_secret", client.client_secret)
     |> put_header("Accept", "application/json")
-    |> AuthCode.get_token(params, headers)
+    |> put_param(:grant_type, "authorization_code")
+    |> put_param(:redirect_uri, client.redirect_uri)
+    |> merge_params(params)
+    |> put_headers(headers)
   end
 end
