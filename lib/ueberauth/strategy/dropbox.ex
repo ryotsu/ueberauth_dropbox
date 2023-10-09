@@ -75,7 +75,7 @@ defmodule Ueberauth.Strategy.Dropbox do
   Handles the initial redirect to the dropbox authentication page.
   """
   def handle_request!(conn) do
-    opts = [redirect_uri: callback_url(conn)]
+    opts = [redirect_uri: callback_url(conn), token_access_type: "offline"]
     |> with_state_param(conn)
     module = option(conn, :oauth2_module)
     redirect!(conn, apply(module, :authorize_url!, [opts]))
